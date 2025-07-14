@@ -41,26 +41,28 @@ return (
 </div>
 )
 }
+const images = import.meta.glob('./assets/cards/*.jpg', { eager: true, import: 'default' })
 
 const App = () => {
-
-return (
-  <>
-    <h2>TCG Wishlist</h2>
-    <div className="card-row">
-      <Card cardImg="./src/assets/cards/sv1a-tropius.jpg" collectionName="sv1a" cardNumber="074/073" Pokemon="Tropius"/>
-      <Card cardImg="./src/assets/cards/sv1a-sprigatito.jpg" collectionName="sv1a" cardNumber="075/073" Pokemon="Sprigatito"/>
-      <Card cardImg="./src/assets/cards/sv1a-floragato.jpg" collectionName="sv1a" cardNumber="076/073" Pokemon="Floragato"/>
-      <Card cardImg="./src/assets/cards/sv1a-meowscarada.jpg" collectionName="sv1a" cardNumber="077/073" Pokemon="Meoscarada"/>
-      <Card cardImg="./src/assets/cards/sv1a-fuecoco.jpg" collectionName="sv1a" cardNumber="078/073" Pokemon="Fuecoco"/>
-      <Card cardImg="./src/assets/cards/sv1a-pwooper.jpg" collectionName="sv1a" cardNumber="076/073" Pokemon="P. Wooper"/>
-      <Card cardImg="./src/assets/cards/sv1s-fidough.jpg" collectionName="sv1S" cardNumber="085/073" Pokemon="Fidough"/> 
-      <Card cardImg="./src/assets/cards/sv1s-ralts.jpg" collectionName="sv1S" cardNumber="083/073" Pokemon="Ralts"/>
-      <Card cardImg="./src/assets/cards/sv1s-kirlia.jpg" collectionName="sv1S" cardNumber="084/073" Pokemon="Kirlia"/>
-      <Card cardImg="./src/assets/cards/sv1s-gardevoir.jpg" collectionName="sv1S" cardNumber="101/073" Pokemon="Gardevoir "/>
-    </div>
-  </>
-)
+  return (
+    <>
+      <h2>TCG Wishlist</h2>
+      <div className="card-row">
+        {cards.map(card => {
+          const cardImg = images[`./assets/cards/${card.file}`]
+          return (
+            <Card
+              key={card.name}
+              cardImg={cardImg}
+              collectionName={card.collection}
+              cardNumber={card.number}
+              Pokemon={card.name}
+            />
+          )
+        })}
+      </div>
+    </>
+  )
 }
 
 export default App
